@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Qoq1PJwzZ0b/ar7tvD3iT+fltJVL3SXbbr4lgBYCDUWPD7PZ5aG6Sg0S8iSnMrmXurAyIbd0dlTZvkOcIUUK3A==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jansson.oscar\\Documents\\Prog2\\GymArbete\\GymArbete\\GymArbete.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jansson.oscar\\.nuget\\packages\\raylib-cs\\4.2.0.1\\raylib-cs.4.2.0.1.nupkg.sha512",
+    "C:\\Users\\jansson.oscar\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
