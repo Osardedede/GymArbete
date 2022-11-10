@@ -21,7 +21,7 @@ for (var i = 0; i < 5; i++)
 while (!Raylib.WindowShouldClose())
 {
 
-    while (Knapp.runda == true)
+    if (Knapp.runda == true)
     {
 
 
@@ -67,7 +67,7 @@ while (!Raylib.WindowShouldClose())
     }
 
 
-    while (Knapp.runda == false && Knapp.gameover == false) 
+    if (Knapp.runda == false && Knapp.gameover == false)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
@@ -102,7 +102,7 @@ while (!Raylib.WindowShouldClose())
     // Sen alla timers
 
 
-    while (Knapp.runda == false && Knapp.gameover == true)
+    if (Knapp.runda == false && Knapp.gameover == true)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
