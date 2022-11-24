@@ -2,7 +2,7 @@
 using System.Numerics;
 using System.Collections.Generic;
 
-//test
+
 
 Raylib.InitWindow(1000, 800, "MemorieTest");
 
@@ -11,6 +11,8 @@ Raylib.SetTargetFPS(60);
 List<Knapp> knappar = new();
 
 int Poäng = 4;
+bool meny = true;
+
 
 for (var i = 0; i < 5; i++)
 {
@@ -21,6 +23,28 @@ for (var i = 0; i < 5; i++)
 
 while (!Raylib.WindowShouldClose())
 {
+
+    if (meny == true)
+    {
+        Vector2 mousePos = Raylib.GetMousePosition();
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.WHITE);
+        Raylib.DrawText($"Välj Läge", 300, 300, 50, Color.BLACK);
+
+        Rectangle UtanTimerKnapp = new Rectangle(300, 350, 200, 100);
+        Rectangle MedUpTimerKnapp = new Rectangle(300, 350, 200, 100);
+        Rectangle MedNedTimerKnapp = new Rectangle(300, 350, 200, 100);
+
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+            if (Raylib.CheckCollisionPointRec(mousePos, UtanTimerKnapp))
+            {
+
+            }
+            Raylib.EndDrawing();
+        }
+    }
+
 
     if (Knapp.runda == true)
     {
@@ -48,6 +72,7 @@ while (!Raylib.WindowShouldClose())
                 {
                     k.isClicked = true;
                     k.Check();
+                    k.Shuffle();
                 }
             }
         }
@@ -73,7 +98,7 @@ while (!Raylib.WindowShouldClose())
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
         Rectangle NästaRunda = new Rectangle(300, 350, 200, 100);
-        Vector2 mousePos = Raylib.GetMousePosition();
+        // Vector2 mousePos = Raylib.GetMousePosition();
 
         Raylib.DrawText($"Din Poäng:{Poäng}", 300, 300, 50, Color.BLACK);
         Raylib.DrawText($"Nästa Runda", 300, 350, 100, Color.BLACK);
