@@ -13,8 +13,16 @@ class Knapp
 
     public Knapp()
     {
-        rect = new Rectangle(0, 0, 64, 64);
-        Shuffle();
+
+
+        while ()
+        {
+
+            rect = new Rectangle(0, 0, 64, 64);
+            Shuffle();
+
+            
+        }
     }
 
     public void Draw()

@@ -24,41 +24,42 @@ for (var i = 0; i < 5; i++)
 while (!Raylib.WindowShouldClose())
 {
 
-    if (meny == true)
-    {
-        Vector2 mousePos = Raylib.GetMousePosition();
-        Raylib.BeginDrawing();
-        Raylib.ClearBackground(Color.WHITE);
-        Raylib.DrawText($"Välj Läge", 300, 300, 50, Color.BLACK);
+    // if (meny == true)
+    // {
+    //     Vector2 mousePos = Raylib.GetMousePosition();
+    //     Raylib.BeginDrawing();
+    //     Raylib.ClearBackground(Color.WHITE);
+    //     Raylib.DrawText($"Välj Läge", 300, 300, 50, Color.BLACK);
 
-        Rectangle UtanTimerKnapp = new Rectangle(300, 350, 200, 100);
-        Rectangle MedUpTimerKnapp = new Rectangle(300, 350, 200, 100);
-        Rectangle MedNedTimerKnapp = new Rectangle(300, 350, 200, 100);
+    //     Rectangle UtanTimerKnapp = new Rectangle(300, 350, 200, 100);
+    //     Rectangle MedUpTimerKnapp = new Rectangle(300, 350, 200, 100);
+    //     Rectangle MedNedTimerKnapp = new Rectangle(300, 350, 200, 100);
 
-        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
-        {
-            if (Raylib.CheckCollisionPointRec(mousePos, UtanTimerKnapp))
-            {
-
-            }
-            Raylib.EndDrawing();
-        }
-    }
+    //     if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+    //     {
+    //         if (Raylib.CheckCollisionPointRec(mousePos, UtanTimerKnapp))
+    //         {
+    //             Knapp.runda = true;
+    //         }
+    //         Raylib.EndDrawing();
+    //     }
+    // }
 
 
     if (Knapp.runda == true)
     {
 
-
         Vector2 mousePos = Raylib.GetMousePosition();
+
 
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
-
+    
         foreach (Knapp k in knappar)
         {
             k.Draw();
         }
+
 
 
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
@@ -98,10 +99,10 @@ while (!Raylib.WindowShouldClose())
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
         Rectangle NästaRunda = new Rectangle(300, 350, 200, 100);
-        // Vector2 mousePos = Raylib.GetMousePosition();
 
-        Raylib.DrawText($"Din Poäng:{Poäng}", 300, 300, 50, Color.BLACK);
+        Raylib.DrawText($"Din Nivå:{Poäng}", 300, 300, 50, Color.BLACK);
         Raylib.DrawText($"Nästa Runda", 300, 350, 100, Color.BLACK);
+        Vector2 mousePos = Raylib.GetMousePosition();
 
 
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
