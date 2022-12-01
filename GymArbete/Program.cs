@@ -11,7 +11,6 @@ Raylib.SetTargetFPS(60);
 List<Knapp> knappar = new();
 
 int Poäng = 4;
-bool meny = true;
 
 
 for (var i = 0; i < 5; i++)
@@ -24,29 +23,58 @@ for (var i = 0; i < 5; i++)
 while (!Raylib.WindowShouldClose())
 {
 
-    // if (meny == true)
-    // {
-    //     Vector2 mousePos = Raylib.GetMousePosition();
-    //     Raylib.BeginDrawing();
-    //     Raylib.ClearBackground(Color.WHITE);
-    //     Raylib.DrawText($"Välj Läge", 300, 300, 50, Color.BLACK);
+    if (Knapp.meny == true)
+    {
+        Vector2 mousePos = Raylib.GetMousePosition();
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.WHITE);
+        Raylib.DrawText($"Välj Läge", 400, 300, 50, Color.BLACK);
 
-    //     Rectangle UtanTimerKnapp = new Rectangle(300, 350, 200, 100);
-    //     Rectangle MedUpTimerKnapp = new Rectangle(300, 350, 200, 100);
-    //     Rectangle MedNedTimerKnapp = new Rectangle(300, 350, 200, 100);
-
-    //     if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
-    //     {
-    //         if (Raylib.CheckCollisionPointRec(mousePos, UtanTimerKnapp))
-    //         {
-    //             Knapp.runda = true;
-    //         }
-    //         Raylib.EndDrawing();
-    //     }
-    // }
+        Rectangle UtanTimerKnapp = new Rectangle(400, 400, 200, 50);
+        Raylib.DrawRectangleRec(UtanTimerKnapp, Color.GREEN);
+        Raylib.DrawText($"Utan Timer", 450, 400, 20, Color.BLACK);
 
 
-    if (Knapp.runda == true)
+        Rectangle UpTimerKnapp = new Rectangle(400, 500, 200, 50);
+        Raylib.DrawRectangleRec(UpTimerKnapp, Color.BLUE);
+        Raylib.DrawText($"UpTimer", 450, 500, 20, Color.BLACK);
+
+
+        Rectangle NedTimerKnapp = new Rectangle(400, 600, 200, 50);
+        Raylib.DrawRectangleRec(NedTimerKnapp, Color.RED);
+        Raylib.DrawText($"NedTimer", 450, 600, 20, Color.BLACK);
+
+
+
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+            if (Raylib.CheckCollisionPointRec(mousePos, UtanTimerKnapp))
+            {
+                Knapp.runda = true;
+                Knapp.meny = false;
+            }
+        }
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+            if (Raylib.CheckCollisionPointRec(mousePos, UpTimerKnapp))
+            {
+                Knapp.UpRunda = true;
+                Knapp.meny = false;
+            }
+        }
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+            if (Raylib.CheckCollisionPointRec(mousePos, NedTimerKnapp))
+            {
+                Knapp.NedRunda = true;
+                Knapp.meny = false;
+            }
+        }
+        Raylib.EndDrawing();
+    }
+
+
+    if (Knapp.NedRunda == true)
     {
 
         Vector2 mousePos = Raylib.GetMousePosition();
@@ -54,7 +82,53 @@ while (!Raylib.WindowShouldClose())
 
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
-    
+
+        foreach (Knapp k in knappar)
+        {
+            k.Draw();
+        }
+
+
+
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+
+
+            foreach (Knapp k in knappar)
+            {
+
+                if (Raylib.CheckCollisionPointRec(mousePos, k.rect))
+                {
+                    k.isClicked = true;
+                    k.Check();
+                    k.Shuffle();
+                }
+            }
+        }
+
+
+        int oklickade = knappar.Count(k => !k.isClicked);
+
+
+        if (oklickade == 0)
+        {
+            Poäng++;
+            Knapp.runda = false;
+
+        }
+
+
+        Raylib.EndDrawing();
+    }
+    if (Knapp.UpRunda == true)
+    {
+
+        Vector2 mousePos = Raylib.GetMousePosition();
+
+
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.WHITE);
+
         foreach (Knapp k in knappar)
         {
             k.Draw();
@@ -93,8 +167,57 @@ while (!Raylib.WindowShouldClose())
         Raylib.EndDrawing();
     }
 
+    if (Knapp.runda == true)
+    {
 
-    if (Knapp.runda == false && Knapp.gameover == false)
+        Vector2 mousePos = Raylib.GetMousePosition();
+
+
+        Raylib.BeginDrawing();
+        Raylib.ClearBackground(Color.WHITE);
+
+        foreach (Knapp k in knappar)
+        {
+            k.Draw();
+        }
+
+
+
+        if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
+        {
+
+
+            foreach (Knapp k in knappar)
+            {
+
+                if (Raylib.CheckCollisionPointRec(mousePos, k.rect))
+                {
+                    k.isClicked = true;
+                    k.Check();
+                    k.Shuffle();
+                }
+            }
+        }
+
+
+        int oklickade = knappar.Count(k => !k.isClicked);
+
+
+        if (oklickade == 0)
+        {
+            Poäng++;
+            Knapp.runda = false;
+
+        }
+
+
+        Raylib.EndDrawing();
+    }
+
+    
+
+
+    if (Knapp.NästaRunda == true)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
@@ -126,7 +249,6 @@ while (!Raylib.WindowShouldClose())
         }
         Raylib.EndDrawing();
     }
-    // Sen alla timers
 
 
     if (Knapp.runda == false && Knapp.gameover == true)

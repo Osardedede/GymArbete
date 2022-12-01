@@ -7,22 +7,19 @@ class Knapp
     public bool isClicked = false;
     public static int tracker = 0;
     public static bool gameover = false;
-    public static bool runda = true;
+    public static bool runda = false;
+    public static bool UpRunda = false;
+    public static bool NedRunda = false;
+    public static bool meny = true;
+    public static bool NästaRunda = false;
+
 
 
 
     public Knapp()
     {
-
-
-        while ()
-        {
-
-            rect = new Rectangle(0, 0, 64, 64);
-            Shuffle();
-
-            
-        }
+        rect = new Rectangle(0, 0, 64, 64);
+        Shuffle();
     }
 
     public void Draw()
@@ -43,6 +40,8 @@ class Knapp
         Random kordinat = new Random();
         rect.x = kordinat.Next(Raylib.GetScreenWidth() - (int)rect.width);
         rect.y = kordinat.Next(Raylib.GetScreenHeight() - (int)rect.height);
+
+
     }
 
     public void Check()
