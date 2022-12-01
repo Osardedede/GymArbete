@@ -11,6 +11,11 @@ Raylib.SetTargetFPS(60);
 List<Knapp> knappar = new();
 
 int Poäng = 4;
+float timerCurrentValue = 0;
+float NedStart = 16;
+bool Räknatimer = true;
+
+
 
 
 for (var i = 0; i < 5; i++)
@@ -19,6 +24,7 @@ for (var i = 0; i < 5; i++)
     k.number = i + 1;
     knappar.Add(k);
 }
+
 
 while (!Raylib.WindowShouldClose())
 {
@@ -89,6 +95,24 @@ while (!Raylib.WindowShouldClose())
         }
 
 
+        if (Räknatimer == true)
+        {
+
+            NedStart -= Raylib.GetFrameTime();
+            int hej = (int)NedStart;
+            Raylib.DrawText($"{hej}", 400, 300, 50, Color.BLACK);
+            
+            if (hej < 0)
+            {
+                Knapp.NedRunda = false;
+                Knapp.gameover = true;
+            }
+        }
+
+
+
+
+
 
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
         {
@@ -99,9 +123,13 @@ while (!Raylib.WindowShouldClose())
 
                 if (Raylib.CheckCollisionPointRec(mousePos, k.rect))
                 {
+
                     k.isClicked = true;
                     k.Check();
                     k.Shuffle();
+                    Räknatimer = false;
+
+
                 }
             }
         }
@@ -120,6 +148,9 @@ while (!Raylib.WindowShouldClose())
 
         Raylib.EndDrawing();
     }
+
+
+
     if (Knapp.UpRunda == true)
     {
 
@@ -133,6 +164,28 @@ while (!Raylib.WindowShouldClose())
         {
             k.Draw();
         }
+
+        // börja timer
+
+        // float timerCurrentValue = 0;
+        // timerCurrentValue++;
+
+
+
+
+
+        timerCurrentValue += Raylib.GetFrameTime();
+        int hej = (int)timerCurrentValue;
+
+
+
+
+        Raylib.DrawText($"{hej}", 400, 300, 50, Color.BLACK);
+
+
+
+
+
 
 
 
@@ -148,6 +201,7 @@ while (!Raylib.WindowShouldClose())
                     k.isClicked = true;
                     k.Check();
                     k.Shuffle();
+                    // Sluta timer
                 }
             }
         }
@@ -162,6 +216,7 @@ while (!Raylib.WindowShouldClose())
             Knapp.runda = false;
 
         }
+
 
 
         Raylib.EndDrawing();
@@ -214,7 +269,7 @@ while (!Raylib.WindowShouldClose())
         Raylib.EndDrawing();
     }
 
-    
+
 
 
     if (Knapp.NästaRunda == true)
