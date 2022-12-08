@@ -12,6 +12,8 @@ class Knapp
     public static bool NedRunda = false;
     public static bool meny = true;
     public static bool NästaRunda = false;
+    public static bool Räknatimer = true;
+
 
 
 
@@ -51,7 +53,10 @@ class Knapp
         if (number > tracker)
         {
             runda = false;
+            UpRunda = false;
+            NedRunda = false;
             gameover = true;
+            Räknatimer = false;
         }
     }
 }

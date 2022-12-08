@@ -11,9 +11,11 @@ Raylib.SetTargetFPS(60);
 List<Knapp> knappar = new();
 
 int Poäng = 4;
-float timerCurrentValue = 0;
+float UpStart = 0;
 float NedStart = 16;
-bool Räknatimer = true;
+bool VäljaUpp = false;
+bool VäljaNed = false;
+bool VäljaNormal = false;
 
 
 
@@ -58,6 +60,7 @@ while (!Raylib.WindowShouldClose())
             {
                 Knapp.runda = true;
                 Knapp.meny = false;
+                VäljaNormal = true;
             }
         }
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
@@ -66,6 +69,7 @@ while (!Raylib.WindowShouldClose())
             {
                 Knapp.UpRunda = true;
                 Knapp.meny = false;
+                VäljaUpp = true;
             }
         }
         if (Raylib.IsMouseButtonPressed(MouseButton.MOUSE_LEFT_BUTTON))
@@ -74,6 +78,7 @@ while (!Raylib.WindowShouldClose())
             {
                 Knapp.NedRunda = true;
                 Knapp.meny = false;
+                VäljaNed = true;
             }
         }
         Raylib.EndDrawing();
@@ -95,13 +100,13 @@ while (!Raylib.WindowShouldClose())
         }
 
 
-        if (Räknatimer == true)
+        if (Knapp.Räknatimer == true)
         {
 
             NedStart -= Raylib.GetFrameTime();
             int hej = (int)NedStart;
-            Raylib.DrawText($"{hej}", 400, 300, 50, Color.BLACK);
-            
+            Raylib.DrawText($"{hej}", 0, 0, 50, Color.BLACK);
+
             if (hej < 0)
             {
                 Knapp.NedRunda = false;
@@ -127,7 +132,7 @@ while (!Raylib.WindowShouldClose())
                     k.isClicked = true;
                     k.Check();
                     k.Shuffle();
-                    Räknatimer = false;
+                    Knapp.Räknatimer = false;
 
 
                 }
@@ -137,18 +142,16 @@ while (!Raylib.WindowShouldClose())
 
         int oklickade = knappar.Count(k => !k.isClicked);
 
-
         if (oklickade == 0)
         {
             Poäng++;
-            Knapp.runda = false;
-
+            Knapp.NedRunda = false;
+            Knapp.NästaRunda = true;
         }
 
 
         Raylib.EndDrawing();
     }
-
 
 
     if (Knapp.UpRunda == true)
@@ -174,14 +177,22 @@ while (!Raylib.WindowShouldClose())
 
 
 
-        timerCurrentValue += Raylib.GetFrameTime();
-        int hej = (int)timerCurrentValue;
+        if (Knapp.Räknatimer == true)
+        {
 
+            UpStart += Raylib.GetFrameTime();
+            int hej = (int)UpStart;
+            Raylib.DrawText($"{hej}", 0, 0, 50, Color.BLACK);
 
-
-
-        Raylib.DrawText($"{hej}", 400, 300, 50, Color.BLACK);
-
+            if (hej < 0)
+            {
+                Knapp.NedRunda = false;
+                Knapp.gameover = true;
+                Knapp.Räknatimer = false;
+            }
+        }
+        // timerCurrentValue += Raylib.GetFrameTime();
+        // int hej = (int)timerCurrentValue;
 
 
 
@@ -201,6 +212,8 @@ while (!Raylib.WindowShouldClose())
                     k.isClicked = true;
                     k.Check();
                     k.Shuffle();
+                    Knapp.Räknatimer = false;
+
                     // Sluta timer
                 }
             }
@@ -213,7 +226,8 @@ while (!Raylib.WindowShouldClose())
         if (oklickade == 0)
         {
             Poäng++;
-            Knapp.runda = false;
+            Knapp.UpRunda = false;
+            Knapp.NästaRunda = true;
 
         }
 
@@ -250,6 +264,7 @@ while (!Raylib.WindowShouldClose())
                     k.isClicked = true;
                     k.Check();
                     k.Shuffle();
+
                 }
             }
         }
@@ -262,6 +277,7 @@ while (!Raylib.WindowShouldClose())
         {
             Poäng++;
             Knapp.runda = false;
+            Knapp.NästaRunda = true;
 
         }
 
@@ -297,7 +313,29 @@ while (!Raylib.WindowShouldClose())
                 kn.number = knappar.Count + 1;
                 knappar.Add(kn);
 
-                Knapp.runda = true;
+                if (VäljaUpp == true)
+                {
+                    Knapp.UpRunda = true;
+                    Knapp.NästaRunda = false;
+                    UpStart = 0;
+                    Knapp.Räknatimer = true;
+
+
+                }
+                if (VäljaNed == true)
+                {
+                    Knapp.NedRunda = true;
+                    Knapp.NästaRunda = false;
+                    NedStart = 16;
+                    Knapp.Räknatimer = true;
+
+                }
+
+                if (VäljaNormal == true)
+                {
+                    Knapp.runda = true;
+                    Knapp.NästaRunda = false;
+                }
 
                 Knapp.tracker = 0;
             }
@@ -306,11 +344,19 @@ while (!Raylib.WindowShouldClose())
     }
 
 
-    if (Knapp.runda == false && Knapp.gameover == true)
+    if (Knapp.gameover == true)
     {
         Raylib.BeginDrawing();
         Raylib.ClearBackground(Color.WHITE);
-        Raylib.DrawText($"Du förlora. Du fick {Poäng} poäng", 300, 300, 50, Color.BLACK);
+        if (Poäng > 4)
+        {
+            Raylib.DrawText($"Du förlora. Du fick {Poäng} poäng", 300, 300, 50, Color.BLACK);
+        }
+        else
+        {
+            Raylib.DrawText($"Du förlora. Du fick 0 poäng", 300, 300, 50, Color.BLACK);
+
+        }
         Raylib.EndDrawing();
     }
 }
